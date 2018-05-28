@@ -17,6 +17,7 @@ new Vue({
         boxes: 1,
         multi: 10,
         fill: 'rgba(1,1,1,1)',
+        color: '#FFEFD5'
     }),
     methods: {
         rand: function (x) {
@@ -27,28 +28,28 @@ new Vue({
             return 'rgba(' + nums + ',1)';
         }
     },
-    computed: {
-
-    },
+    computed: {},
     template: `
-        <div>
+        <div class="flex">
+        <div style="min-width: 400px; margin-right: 1rem">
+            <h5>Color: {{color}}</h5>
+            <input type="color" v-model="color">
             <h5>Size: {{size}} px</h5>
             <input type="range" v-model="size" max="1000" />
             <h5>Size: {{boxsize}} px</h5>
             <input type="range" v-model="boxsize" max="1000" />
             <h5>Boxes: {{boxes}}</h5>
             <input type="range" v-model="boxes" max="1000" /> 
-            <h5>g count: {{count}}</h5>
-            <input type="range" v-model="count" max="50" /> 
             <h5>Random multiplier: {{multi}}</h5>
             <input type="range" v-model="multi" max="50" /> 
-            <Scene :size="size">
-            <g v-for="i in count">
+            </div><div>
+            <Scene :size="size" :bg="color">
+            <g>
               <Box v-for="(item, index) in Array.from({length: boxes}).slice(0,boxes)" 
               :size="boxsize" :fill="colorz()"  :x="rand(multi)*boxsize" :y="rand(multi)*boxsize"/>
             </g>
             </Scene>
-
+        </div>
         </div>
     `
 });
